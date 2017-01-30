@@ -1,0 +1,18 @@
+{
+  "restaurants": [{
+    "best": [{
+      "quality":"<span>☆</span><span>☆</span><span>☆</span><span>☆</span>",
+      "type": ["<strong>Scandinavian","American", "Asian", "Arabic</strong>"],
+      "address":"address1",
+      "hours": ["Monday - Open", "Tuesday - Open", "Wednesday - Closed", "Thursday - Open", "Friday - Open", "Saturday - Open", "Sunday - Closed"],
+      "photo": "img/rest1.jpg"
+    }],
+    "cheap": [{
+      "quality":"<span>☆</span><span>☆</span>",
+      "type": ["<strong>Balkan","American", "Indian</strong>"],
+      "address":"address2",
+      "hours": ["Monday - Open", "Tuesday - Open", "Wednesday - Closed", "Thursday - Open", "Friday - Open", "Saturday - Open", "Sunday - Closed"],
+      "photo": "img/inside.jpg"
+    }]
+  }]
+}
