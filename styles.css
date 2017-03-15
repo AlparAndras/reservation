@@ -69,10 +69,14 @@ section {
 }
 
 .navbar-login {
-  background-color: #CAD1DE;
-  width: 605px;
+  width: 400px;
   padding: 10px;
   padding-bottom: 0px;
+}
+
+.navbar-login .btn {
+  width: 150px;
+  background: rgba(43, 33, 24, 1);
 }
 
 .navbar-login-session {
@@ -88,16 +92,29 @@ section {
 
 /************Nav*************/
 
+.dropdown {
+  left: 100px;
+  bottom: 2px;
+}
+
+.dropdow .li:active {
+  background: rgba(43, 33, 24, 0.7);
+}
+
 .navbar-custom {
-  background-color: #5C573E;
+  background: rgba(43, 33, 24, 0.7);
+  /*background-color: #5C573E;*/
   text-transform: uppercase;
   font-weight: 600;
+  height: 70px;
   font-size: small;
   border: none;
+
 }
 
 .navbar-custom a:focus {
   outline: none;
+
 }
 
 .navbar-custom .navbar-brand {
@@ -117,10 +134,13 @@ section {
 
 .navbar-custom .navbar-nav li a {
   color: white;
+  top: 10px;
+  margin-left: 10px;
 }
 
 .navbar-custom .navbar-nav li a:hover {
   color: #D2FF28;
+  box-shadow: 10px 10px 15px #000000;
   outline: none;
 }
 
@@ -162,8 +182,12 @@ section {
   right: 0;
 }
 
+#details .container {
+  background-image: url('https://goo.gl/JLGYDw');
+}
+
 #details .details-item {
-  margin: 0 0 15px;
+  margin: 200px;
   right: 0;
 }
 
@@ -194,10 +218,11 @@ section {
 
 #details .details-item .details-link .caption {
   background: rgba(164,175,105, 0.9);
+  bottom: 150px;
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 0;
+  opacity: 1;
   transition: all ease 0.5s;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
@@ -374,7 +399,7 @@ section {
 
 
 
-/************ Header *************/
+/************ Header ************ https://goo.gl/JLGYDw  , https://goo.gl/T4U34q*/
 
 header {
   position: relative;
@@ -386,7 +411,13 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('img/title.jpg');
+  background-image: url('https://goo.gl/T4U34q');
+  opacity: 0.6;
+  /*-webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(2px);*/
   text-align: center;
   color: white;
 }

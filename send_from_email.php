@@ -30,9 +30,9 @@
     $email_message .= "<li><h3>Email: ".clean_string($email_to)."</h3></li>\n";
     $email_message .= "<li><h3>Reservation time: ".clean_string($time)."</h3></li>\n";
     $email_message .= "<li><h3>Date Of Your Booking: ".clean_string($date)."</h3></li>\n";
-    $email_message .= "<li><h3>Number of guests: ".clean_string($count)."</h3></li></ul>\n";
+    //$email_message .= "<li><h3>Number of guests: ".clean_string($count)."</h3></li></ul>\n";
     $email_message .= "<h2>Activate your booking by clicking this link bellow: </h2>\n";
-    $email_message .= "<h2>http://urban.esy.es/verify.php?verification-key=A1B2C3 </h2>\n";
+    $email_message .= "<h2>...</h2>\n";
     $email_message .= "</body></html>";
 
     $retval = @mail($email_to, $email_subject, $email_message, $headers);

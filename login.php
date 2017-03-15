@@ -1,9 +1,20 @@
 <?php
-	session_start();
+	error_reporting(E_ALL);
+	ini_set("display_errors", "On");
 
-	//$conn = mysqli_connect("Localhost", "thegrund_admin", "Ridemore#1", "thegrund_auth");
+	if(!session_id()) {
+	    session_start();
+	}
 
-	$localhost = mysqli_connect("localhost", "root", "", "auth");
+	$mysql_user = "thegrund_admin";
+	$mysql_password = "Ridemore#1";
+	$mysql_database = "thegrund_auth";
+	$user_table = "auth";
+
+	$conn = mysqli_connect("Localhost", $mysql_user, $mysql_password, $mysql_database);
+	// $localhost = mysqli_connect("192.168.1.3", "root", "", "auth");
+
+	// $localhost = mysqli_connect("localhost", "root", "", "auth");
 
 	if(isset($_POST['login_btn'])) {
 		if(isset($_POST['email']) && isset($_POST['uid']) && isset($_POST['pwd'])) {
@@ -12,8 +23,8 @@
 			$pwd = $_POST['pwd'];
 
 			$pwd = md5($pwd);
-			$sql = "SELECT * FROM users WHERE email='$email' AND uid='$uid' AND pwd='$pwd'";
-			$result = mysqli_query($localhost, $sql);
+			$sql = "SELECT * FROM $user_table WHERE email='$email' AND uid='$uid' AND pwd='$pwd'";
+			$result = mysqli_query($conn, $sql);
 
 			if(mysqli_num_rows($result) == 1) {
 				$_SESSION['message'] = "You are now logged in";
@@ -26,6 +37,20 @@
 			}
 		}
 	}
+
+#	include_once "./fbtest/src/Facebook/Facebook.php";
+require_once __DIR__ . '/vendor/autoload.php';
+
+	$fb = new Facebook\Facebook([
+		'app_id' => '797324727057589', // Replace {app-id} with your app id
+		'app_secret' => 'e05ee133c751d55ba2dc0ee5bc39f210',
+		'default_graph_version' => 'v2.2',
+	]);
+
+	$helper = $fb->getRedirectLoginHelper();
+
+	$permissions = ['public_profile', 'email']; // Optional permissions
+	$loginUrl = $helper->getLoginUrl('http://thegrund.ro/facebook_login.php', $permissions);
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +66,8 @@
 
 	<style>
 		body {
-			background-color: #153243;
+			background: rgba(43, 33, 24, 0.7);
+			/*background-color: #153243;*/
 		}
 
 		.login-page-user {
@@ -81,9 +107,9 @@
 
 		#login_btn {
 		  border: 0;
-		  background: #0087cc;
+		    background: rgba(43, 33, 24, 1);
 		  border-radius: 4px;
-		  box-shadow: 0 5px 0 #006599;
+		  box-shadow: 0 5px 0 #5C573E;
 		  color: #fff;
 		  cursor: pointer;
 		  font: inherit;
@@ -93,7 +119,7 @@
 		  transition: all .1s linear;
 		}
 		#login_btn:active {
-		  box-shadow: 0 2px 0 #006599;
+		  box-shadow: 0 2px 0 #5C573E;
 		  transform: translateY(3px);
 		}
 
@@ -106,6 +132,19 @@
 			color: #FF0000;
 			text-align: center;
 			padding-top: 5px;
+		}
+
+		.or {
+		  position: absolute;
+		  top: 480px;
+		  left: 280px;
+		  width: 40px;
+		  height: 40px;
+		  background: #DDD;
+		  border-radius: 50%;
+		  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+		  line-height: 40px;
+		  text-align: center;
 		}
 
 	</style>
@@ -149,8 +188,16 @@
 							</tr> -->
 							<tr>
 								<td>
-									<hr>
 									<input type = "submit" id = "login_btn" name = "login_btn" value="Login">
+									<div class="or">OR</div>
+									<hr>
+									<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false">
+									<?php
+									echo '<a style="text-decoration:none;" href="' . htmlspecialchars($loginUrl) . '">
+									<img src="img/fblogin.png" alt="Facebook Login"/>
+									</a>';
+									?>
+									</div>
 								</td>
 							</tr>
 						</table>

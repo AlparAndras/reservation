@@ -29,6 +29,16 @@
     <script type="text/javascript" src="jquery.timepicker.min.js"></script> -->
 </head>
 <body>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v2.8&appId=1499848717001396";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+
       <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
           <div class="container">
               <div class="navbar-header page-scroll">
@@ -54,19 +64,12 @@
                       <li class="page-scroll">
                           <a href="#contact">Contact</a>
                       </li>
+                      <!-- <div class="or">-</div> -->
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user"></span>
-                            <strong><?php echo $_SESSION['uid'];?></strong>
+                            <strong><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name'];?></strong>
                             <span class="glyphicon glyphicon-chevron-down"></span>
-
-                              <?php
-                              	if (isset($_SESSION['rem'])) {
-                              		echo "<div id='insider_msg'>".$_SESSION['rem']."</div>";
-                              		unset($_SESSION['rem']);
-                              	}
-                              ?>
-
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -74,18 +77,33 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <p class="text-center">
-                                                <span class="glyphicon glyphicon-user icon-size"></span>
+                                                <?php
+                                                $userPic = __DIR__ . "/img/fbimg/".$_SESSION["uid"].".jpg";
+                                                $userPicURL = str_replace($_SERVER["DOCUMENT_ROOT"], "", $userPic);
+                                                $userpicExists = realpath( $userPic );
+                                                if( $userpicExists ){
+                                                    echo '<span style="display: block; overflow: hidden;"><img style="border: 5px solid #22160b; border-radius: 50px;" src="'.$userPicURL.'" width="100%" alt="" /></span>';
+                                                }
+                                                else{
+                                                    echo '<span class="glyphicon glyphicon-user icon-size"></span>';
+                                                }
+                                                ?>
+                                                <?php
+                                                  if (isset($_SESSION['rem'])) {
+                                                    echo "<div style='text-align: center;' id='insider_msg'>".$_SESSION['rem']."</div>";
+                                                  }
+                                                ?>
                                             </p>
                                         </div>
                                         <div class="col-lg-8">
-                                            <p class="text-left"><strong><?php echo $_SESSION['uid'];?></strong></p>
+                                            <p class="text-left"><strong><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name'];?></strong></p>
                                             <p class="text-left small"><?php echo $_SESSION['email'];?></p>
 
                                             <p class="text-left">
                                               <a href="#" class="btn btn-primary btn-block btn-sm disabled">Profile</a>
                                             </p>
                                             <p class="text-left">
-                                              <a href="logout.php" class="btn btn-info btn-block btn-sm">Logout</a>
+                                              <a href="logout.php" class="btn btn-block btn-sm">Logout</a>
                                             </p>
                                         </div>
                                     </div>
@@ -103,6 +121,7 @@
                               <li><a href="#">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li> -->
                         </ul>
                       </li>
+
                   </ul>
                   <!-- <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -116,12 +135,14 @@
     <header id = "header">
         <div class="header-content">
             <div class="header-content-inner">
-              <?php
-              	if (isset($_SESSION['message'])) {
-              		echo "<div id='error_msg'>".$_SESSION['message']."</div>";
-              		unset($_SESSION['message']);
-              	}
-              ?>
+              <!-- <div class="fb-video" data-href="https://www.facebook.com/theGRND/videos/1040817292676693/" data-width="500" data-show-text="false">
+                <blockquote cite="https://www.facebook.com/theGRND/videos/1040817292676693/" class="fb-xfbml-parse-ignore">
+                  <a href="https://www.facebook.com/theGRND/videos/1040817292676693/">GRUND Coffee Tour</a>
+                  <p>Join us in this quick tour around the city as we&#039;re heading to GRUND for a nice cup of Coffee. We have a surprise for everyone! Stop by anytime and find out more about it! #FillUpYourCup #GRUND</p>
+                  Közzétette: <a href="https://www.facebook.com/theGRND/">GRUND</a>
+                  – 2016. június 11.
+                </blockquote>
+              </div> -->
                 <!-- <h1 id="homeHeading">Your Favorite Source of Reserving Tables</h1>
                 <hr>
                 <p>Start your reservation now....</p>
@@ -215,19 +236,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Booking Details</h2>
+                    <h2>COFFEE | GRUND Menu </h2>
                     <hr class="star-primary">
                 </div>
             </div>
             <div class="row">
                 <div class="details-item">
-                    <a href="#detailmodal" class="details-link" data-toggle="modal">
+                    <a href="#" class="details-link" data-toggle="modal">
+                      <!-- put this line back  for href : #detailmodal  -->
                         <div class="caption">
                             <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
+                                <!-- <i class="fa fa-search-plus fa-3x"></i> -->
                             </div>
                         </div>
-                        <img src="img/rooftop.jpg" class="img-responsive" alt="">
+                        <!-- <img src="img/rooftop.jpg" class="img-responsive" alt=""> -->
                     </a>
                 </div>
             </div>
@@ -246,7 +268,15 @@
                 <div class="dataTable" data-example-id="hoverable-table">
                     <div class="col-lg-12 col-lg-offset-0">
                         <div class="modal-body">
-                          <table class="table table-striped">
+                          <div>
+
+                            <!-- <img src="https://goo.gl/WcXu3U" alt="">
+                            <img src="https://goo.gl/ZvQjOW" alt="">
+                            <img src="https://goo.gl/3vtQej" alt="">
+                            <img src="https://goo.gl/mhlX5q" alt=""> -->
+
+                          </div>
+                          <!-- <table class="table table-striped">
                               <h1>Details</h1>
                               <thead>
                                   <tr>
@@ -260,7 +290,7 @@
                               </thead>
                               <tbody id="bookingDetailRows">
                               </tbody>
-                          </table>
+                          </table> -->
                           <hr class="star-primary">
                         </div>
                     </div>
@@ -286,8 +316,6 @@
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-lg-8 col-lg-offset-2">
-
-
                               <hr class="star-primary">
                                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->

@@ -4,14 +4,14 @@
   $mysql_user = "thegrund_admin";
   $mysql_password = "Ridemore#1";
   $mysql_database = "thegrund_auth";
-  $user_table = "users";
+  $user_table = "auth";
 
-  //$conn = mysqli_connect("Localhost", $mysql_user, $mysql_password, $mysql_database);
+  $conn = mysqli_connect("Localhost", $mysql_user, $mysql_password, $mysql_database);
 
-  $localhost = mysqli_connect("localhost", "root", "", "auth");
+  // $localhost = mysqli_connect("localhost", "root", "", "auth");
 
 
-  if($localhost === false) {
+  if($conn === false) {
     die("ERROR: could not connect." . mysqli_connect_error());
   }
   // $select = mysqli_select_db($mysql_database, $conn) or die("Opps some thing went wrong");
@@ -23,11 +23,11 @@
     $uid = $_POST['uid'];
     $pwd = $_POST['pwd'];
     $pwd2 = $_POST['pwd2'];
-    $rem = mysql_real_escape_string($_POST['rem']);
+    $rem = $_POST['rem'];
     if($pwd == $pwd2) {
       $pwd = md5($pwd);
       $sql = "INSERT INTO $user_table (email, first, last, uid, pwd, rem) VALUES ('$email', '$first', '$last', '$uid', '$pwd', '$rem')";
-      if(mysqli_query($localhost, $sql)) {
+      if(mysqli_query($conn, $sql)) {
         header("Location: index.php");
         echo "record added";
       } else {
@@ -65,7 +65,8 @@
     <style>
 
       body {
-        background-color: #153243;
+        background: rgba(43, 33, 24, 0.7);
+        /*background-color: #153243;*/
       }
       .register-page {
         width: 360px;
@@ -104,9 +105,9 @@
 
       #register_btn {
   		  border: 0;
-  		  background: #0087cc;
+  		  background: rgba(43, 33, 24, 1);
   		  border-radius: 4px;
-  		  box-shadow: 0 5px 0 #006599;
+  		  box-shadow: 0 5px 0 #5C573E;
   		  color: #fff;
   		  cursor: pointer;
   		  font: inherit;
@@ -116,7 +117,7 @@
   		  transition: all .1s linear;
   		}
   		#register_btn:active {
-  		  box-shadow: 0 2px 0 #006599;
+  		  box-shadow: 0 2px 0 #5C573E;
   		  transform: translateY(3px);
   		}
 
@@ -158,7 +159,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <input type="checkbox" name="rem" value="1">Register as <strong>INSIDER</strong>
+                    <input type="checkbox" id = "rem" name="rem" value="1">Register as <strong>INSIDER</strong>
                   </td>
                 </tr>
                 <tr>
